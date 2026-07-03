@@ -6,43 +6,18 @@ import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const photos = [
-  {
-    title: "Fachada da Oficina",
-    category: "Estrutura",
-    src: "/images/gallery/galeria-05.webp",
-    className: "lg:col-span-2 lg:row-span-2",
-  },
-  {
-    title: "Recepção",
-    category: "Atendimento",
-    src: "/images/gallery/galeria-02.webp",
-    className: "",
-  },
-  {
-    title: "Área de Serviços",
-    category: "Oficina",
-    src: "/images/gallery/galeria-03.webp",
-    className: "",
-  },
-  {
-    title: "Centro de Alinhamento",
-    category: "Equipamentos",
-    src: "/images/gallery/galeria-04.webp",
-    className: "",
-  },
-  {
-    title: "Elevadores Automotivos",
-    category: "Manutenção",
-    src: "/images/gallery/galeria-01.webp",
-    className: "",
-  },
+  "/images/gallery/galeria-fachada.webp",
+  "/images/gallery/galeria-recepcao.webp",
+  "/images/gallery/galeria-area-servicos.webp",
+  "/images/gallery/galeria-mecanico-trabalhando.webp",
+  "/images/gallery/galeria-manutencao-andamento.webp",
+  "/images/gallery/galeria-oficina-funcionando.webp",
 ];
 
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const selectedPhoto =
-    selectedIndex !== null ? photos[selectedIndex] : null;
+  const selectedPhoto = selectedIndex !== null ? photos[selectedIndex] : null;
 
   function closeLightbox() {
     setSelectedIndex(null);
@@ -50,45 +25,32 @@ export default function Gallery() {
 
   function previousPhoto() {
     if (selectedIndex === null) return;
-
     setSelectedIndex((selectedIndex - 1 + photos.length) % photos.length);
   }
 
   function nextPhoto() {
     if (selectedIndex === null) return;
-
     setSelectedIndex((selectedIndex + 1) % photos.length);
   }
+
   useEffect(() => {
-  function handleKeyDown(event: KeyboardEvent) {
-    if (selectedIndex === null) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (selectedIndex === null) return;
 
-    if (event.key === "Escape") {
-      closeLightbox();
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") previousPhoto();
+      if (event.key === "ArrowRight") nextPhoto();
     }
 
-    if (event.key === "ArrowLeft") {
-      previousPhoto();
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex]);
 
-    if (event.key === "ArrowRight") {
-      nextPhoto();
-    }
-  }
-
-  window.addEventListener("keydown", handleKeyDown);
-
-  return () => {
-    window.removeEventListener("keydown", handleKeyDown);
-  };
-}, [selectedIndex]);
   return (
     <section
       id="galeria"
       className="relative overflow-hidden bg-[#050505] px-6 py-28 text-white"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.16),transparent_32%)]" />
-
       <div className="relative z-10 mx-auto max-w-[1500px]">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
@@ -115,38 +77,25 @@ export default function Gallery() {
           </p>
         </motion.div>
 
-        <div className="mt-14 grid auto-rows-[280px] gap-5 lg:grid-cols-4">
-          {photos.map((photo, index) => (
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {photos.map((src, index) => (
             <motion.button
-              key={photo.title}
+              key={src}
               type="button"
               onClick={() => setSelectedIndex(index)}
-              initial={{ opacity: 0, y: 28, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: index * 0.06 }}
-              className={`group relative cursor-zoom-in overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/30 transition duration-300 hover:-translate-y-2 hover:border-orange-500/60 hover:shadow-orange-500/20 ${photo.className}`}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              className="group relative aspect-[4/3] overflow-hidden rounded-[28px] border border-white/10 bg-zinc-900 shadow-xl shadow-black/40 transition-all duration-500 hover:-translate-y-1 hover:border-orange-400/40 hover:shadow-2xl hover:shadow-orange-500/10"
             >
               <Image
-                src={photo.src}
-                alt={photo.title}
+                src={src}
+                alt="Estrutura da Clério Auto Elétrica e Mecânica"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition duration-1000 group-hover:scale-110"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.04]"
               />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:bg-orange-500/10 group-hover:opacity-100" />
-
-              <div className="absolute bottom-8 left-8 right-8">
-                <span className="text-xs font-black uppercase tracking-[0.28em] text-yellow-400">
-                  {photo.category}
-                </span>
-
-                <h3 className="mt-2 text-3xl font-black leading-tight text-white">
-                  {photo.title}
-                </h3>
-              </div>
             </motion.button>
           ))}
         </div>
@@ -174,22 +123,12 @@ export default function Gallery() {
 
           <div className="relative h-[75vh] w-full max-w-6xl overflow-hidden rounded-[30px] border border-white/10 bg-black shadow-2xl">
             <Image
-              src={selectedPhoto.src}
-              alt={selectedPhoto.title}
+              src={selectedPhoto}
+              alt="Foto ampliada da estrutura da Clério Auto Elétrica e Mecânica"
               fill
               sizes="100vw"
               className="object-contain"
             />
-
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-8">
-              <span className="text-xs font-black uppercase tracking-[0.28em] text-yellow-400">
-                {selectedPhoto.category}
-              </span>
-
-              <h3 className="mt-2 text-3xl font-black text-white">
-                {selectedPhoto.title}
-              </h3>
-            </div>
           </div>
 
           <button

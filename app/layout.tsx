@@ -13,17 +13,11 @@ export const metadata: Metadata = {
   title: "Clério Auto Elétrica e Mecânica | Aparecida de Goiânia",
   description:
     "Auto elétrica, mecânica geral, scanner automotivo, alinhamento, balanceamento, pneus, peças e baterias em Aparecida de Goiânia.",
-  keywords: [
-    "Clério Auto Elétrica",
-    "oficina mecânica em Aparecida de Goiânia",
-    "auto elétrica Aparecida de Goiânia",
-    "mecânica geral",
-    "scanner automotivo",
-    "alinhamento e balanceamento",
-    "pneus",
-    "baterias",
-    "peças automotivas",
-  ],
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Clério Auto Elétrica e Mecânica",
     description:
@@ -44,8 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Clério Auto Elétrica e Mecânica",
-    description:
-      "Auto elétrica e mecânica geral em Aparecida de Goiânia.",
+    description: "Auto elétrica e mecânica geral em Aparecida de Goiânia.",
     images: ["/images/hero-oficina-clerio.webp"],
   },
   robots: {

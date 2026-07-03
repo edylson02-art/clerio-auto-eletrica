@@ -30,11 +30,12 @@ export default function About() {
         >
           <div className="relative h-[620px] overflow-hidden rounded-[38px] border border-white/10 shadow-2xl shadow-black/50">
             <Image
-              src="/images/recepcao-auto-eletrica.webp"
-              alt="Fachada da Clério Auto Elétrica e Mecânica"
-              fill
-              className="object-cover object-[58%_center] transition duration-700 hover:scale-105"
-            />
+  src="/images/recepcao-auto-eletrica.webp"
+  alt="Recepção da Clério Auto Elétrica"
+  fill
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className="object-cover"
+/>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
 
