@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StructuredData from "./components/seo/StructuredData";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 const siteUrl = "https://clerioautoeletrica.com.br";
 
 const inter = Inter({
@@ -148,6 +150,20 @@ export default function RootLayout({
         />
         <StructuredData />
         {children}
+        <Script
+  src="https://www.googletagmanager.com/gtag/js?id=G-ZGK06TN51D"
+  strategy="afterInteractive"
+/>
+
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZGK06TN51D');
+  `}
+</Script>
+        <GoogleAnalytics gaId="G-ZGK06TN51D" />
       </body>
     </html>
   );
