@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
+
 import "./globals.css";
 import StructuredData from "./components/seo/StructuredData";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import Script from "next/script";
+
 const siteUrl = "https://clerioautoeletrica.com.br";
 
 const inter = Inter({
@@ -11,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://clerioautoeletrica.com.br"),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default:
@@ -40,15 +41,12 @@ export const metadata: Metadata = {
   ],
 
   authors: [{ name: "ES Nexus" }],
-
   creator: "ES Nexus",
-
   publisher: "ES Nexus",
-
   category: "Automotive",
 
   alternates: {
-    canonical: "https://clerioautoeletrica.com.br",
+    canonical: siteUrl,
   },
 
   robots: {
@@ -67,19 +65,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://clerioautoeletrica.com.br",
-
+    url: siteUrl,
     siteName: "Clério Auto Elétrica e Mecânica",
-
     title:
       "Clério Auto Elétrica e Mecânica | Oficina Mecânica em Aparecida de Goiânia",
-
     description:
       "Especialistas em mecânica geral, auto elétrica, scanner automotivo, suspensão, freios, alinhamento, balanceamento e manutenção preventiva.",
-
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/images/hero-oficina-clerio.webp",
         width: 1200,
         height: 630,
         alt: "Clério Auto Elétrica e Mecânica",
@@ -89,18 +83,10 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-
-    title:
-      "Clério Auto Elétrica e Mecânica | Oficina Mecânica",
-
+    title: "Clério Auto Elétrica e Mecânica | Oficina Mecânica",
     description:
       "Serviços especializados em mecânica geral, auto elétrica e diagnóstico automotivo.",
-
-    images: ["/images/og-image.jpg"],
-  },
-
-  verification: {
-    google: "COLE_AQUI_O_CODIGO_DO_SEARCH_CONSOLE",
+    images: ["/images/hero-oficina-clerio.webp"],
   },
 
   icons: {
@@ -122,6 +108,7 @@ export default function RootLayout({
     url: siteUrl,
     telephone: "+5562984511005",
     image: `${siteUrl}/images/hero-oficina-clerio.webp`,
+    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
       streetAddress:
@@ -139,6 +126,19 @@ export default function RootLayout({
         closes: "18:00",
       },
     ],
+    areaServed: ["Aparecida de Goiânia", "Goiânia"],
+    serviceType: [
+      "Auto elétrica",
+      "Mecânica geral",
+      "Scanner automotivo",
+      "Alinhamento",
+      "Balanceamento",
+      "Freios",
+      "Suspensão",
+      "Baterias",
+      "Pneus",
+      "Ar-condicionado automotivo",
+    ],
   };
 
   return (
@@ -148,22 +148,24 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <StructuredData />
-        {children}
-        <Script
-  src="https://www.googletagmanager.com/gtag/js?id=G-ZGK06TN51D"
-  strategy="afterInteractive"
-/>
 
-<Script id="google-analytics" strategy="afterInteractive">
-  {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-ZGK06TN51D');
-  `}
-</Script>
-        <GoogleAnalytics gaId="G-ZGK06TN51D" />
+        <StructuredData />
+
+        {children}
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZGK06TN51D"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZGK06TN51D');
+          `}
+        </Script>
       </body>
     </html>
   );
