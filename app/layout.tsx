@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import StructuredData from "./components/seo/StructuredData";
 const siteUrl = "https://clerioautoeletrica.com.br";
 
 const inter = Inter({
@@ -9,41 +9,102 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: "Clério Auto Elétrica e Mecânica | Aparecida de Goiânia",
-  description:
-    "Auto elétrica, mecânica geral, scanner automotivo, alinhamento, balanceamento, pneus, peças e baterias em Aparecida de Goiânia.",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-icon.png",
+  metadataBase: new URL("https://clerioautoeletrica.com.br"),
+
+  title: {
+    default:
+      "Clério Auto Elétrica e Mecânica | Oficina Mecânica em Aparecida de Goiânia",
+    template: "%s | Clério Auto Elétrica e Mecânica",
   },
+
+  description:
+    "Oficina mecânica e auto elétrica em Aparecida de Goiânia especializada em mecânica geral, injeção eletrônica, scanner automotivo, suspensão, freios, alinhamento, balanceamento, baterias e ar-condicionado.",
+
+  keywords: [
+    "oficina mecânica",
+    "auto elétrica",
+    "mecânica geral",
+    "scanner automotivo",
+    "injeção eletrônica",
+    "alinhamento",
+    "balanceamento",
+    "freios",
+    "suspensão",
+    "ar condicionado automotivo",
+    "baterias",
+    "Aparecida de Goiânia",
+    "Goiânia",
+    "Clério Auto Elétrica",
+  ],
+
+  authors: [{ name: "ES Nexus" }],
+
+  creator: "ES Nexus",
+
+  publisher: "ES Nexus",
+
+  category: "Automotive",
+
+  alternates: {
+    canonical: "https://clerioautoeletrica.com.br",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
+
   openGraph: {
-    title: "Clério Auto Elétrica e Mecânica",
-    description:
-      "Tudo para o seu veículo em um só lugar: auto elétrica, mecânica geral, pneus, peças, baterias e manutenção completa.",
-    url: siteUrl,
-    siteName: "Clério Auto Elétrica e Mecânica",
-    locale: "pt_BR",
     type: "website",
+    locale: "pt_BR",
+    url: "https://clerioautoeletrica.com.br",
+
+    siteName: "Clério Auto Elétrica e Mecânica",
+
+    title:
+      "Clério Auto Elétrica e Mecânica | Oficina Mecânica em Aparecida de Goiânia",
+
+    description:
+      "Especialistas em mecânica geral, auto elétrica, scanner automotivo, suspensão, freios, alinhamento, balanceamento e manutenção preventiva.",
+
     images: [
       {
-        url: "/images/hero-oficina-clerio.webp",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Clério Auto Elétrica e Mecânica",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Clério Auto Elétrica e Mecânica",
-    description: "Auto elétrica e mecânica geral em Aparecida de Goiânia.",
-    images: ["/images/hero-oficina-clerio.webp"],
+
+    title:
+      "Clério Auto Elétrica e Mecânica | Oficina Mecânica",
+
+    description:
+      "Serviços especializados em mecânica geral, auto elétrica e diagnóstico automotivo.",
+
+    images: ["/images/og-image.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
+
+  verification: {
+    google: "COLE_AQUI_O_CODIGO_DO_SEARCH_CONSOLE",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
@@ -85,6 +146,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <StructuredData />
         {children}
       </body>
     </html>

@@ -1,0 +1,15 @@
+export const siteConfig = {
+  name: "Clério Auto Elétrica e Mecânica",
+  shortName: "Clério",
+  url: "https://clerioautoeletrica.com.br",
+  phone: "+5562984511005",
+  displayPhone: "(62) 98451-1005",
+  address: "Av. Pedro Luís Ribeiro, Qd.10 - Lt.01 - Conj. Bela Morada",
+  city: "Aparecida de Goiânia",
+  state: "GO",
+  postalCode: "74920-760",
+  country: "BR",
+  openingHours: "Segunda à sexta, das 08:00 às 18:00",
+  whatsapp: "https://wa.me/5562984511005",
+  ogImage: "/images/hero-oficina-clerio.webp",
+};
