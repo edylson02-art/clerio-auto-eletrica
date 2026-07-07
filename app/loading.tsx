@@ -10,7 +10,7 @@ export default function Loading() {
           width={260}
           height={90}
           className="h-20 w-auto"
-          priority
+          preload
         />
 
         <div className="mt-8 h-1 w-56 overflow-hidden rounded-full bg-white/10">

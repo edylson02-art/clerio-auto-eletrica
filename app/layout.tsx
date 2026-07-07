@@ -4,15 +4,15 @@ import Script from "next/script";
 
 import "./globals.css";
 import StructuredData from "./components/seo/StructuredData";
-
-const siteUrl = "https://clerioautoeletrica.com.br";
+import { siteConfig } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
 
   title: {
     default:
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   category: "Automotive",
 
   alternates: {
-    canonical: siteUrl,
+    canonical: siteConfig.url,
   },
 
   robots: {
@@ -65,18 +65,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: siteUrl,
-    siteName: "Clério Auto Elétrica e Mecânica",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     title:
       "Clério Auto Elétrica e Mecânica | Oficina Mecânica em Aparecida de Goiânia",
     description:
       "Especialistas em mecânica geral, auto elétrica, scanner automotivo, suspensão, freios, alinhamento, balanceamento e manutenção preventiva.",
     images: [
       {
-        url: "/images/hero-oficina-clerio.webp",
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Clério Auto Elétrica e Mecânica",
+        alt: siteConfig.name,
       },
     ],
   },
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     title: "Clério Auto Elétrica e Mecânica | Oficina Mecânica",
     description:
       "Serviços especializados em mecânica geral, auto elétrica e diagnóstico automotivo.",
-    images: ["/images/hero-oficina-clerio.webp"],
+    images: [siteConfig.ogImage],
   },
 
   icons: {
@@ -101,54 +101,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "AutoRepair",
-    name: "Clério Auto Elétrica e Mecânica",
-    url: siteUrl,
-    telephone: "+5562984511005",
-    image: `${siteUrl}/images/hero-oficina-clerio.webp`,
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress:
-        "Av. Pedro Luís Ribeiro, Qd.10 - Lt.01 - Conj. Bela Morada",
-      addressLocality: "Aparecida de Goiânia",
-      addressRegion: "GO",
-      postalCode: "74920-760",
-      addressCountry: "BR",
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "18:00",
-      },
-    ],
-    areaServed: ["Aparecida de Goiânia", "Goiânia"],
-    serviceType: [
-      "Auto elétrica",
-      "Mecânica geral",
-      "Scanner automotivo",
-      "Alinhamento",
-      "Balanceamento",
-      "Freios",
-      "Suspensão",
-      "Baterias",
-      "Pneus",
-      "Ar-condicionado automotivo",
-    ],
-  };
-
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-
+      <body className={`${inter.className} ${inter.variable}`}>
         <StructuredData />
 
         {children}

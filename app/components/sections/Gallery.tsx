@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const photos = [
   "/images/gallery/galeria-fachada.webp",
@@ -19,19 +19,19 @@ export default function Gallery() {
 
   const selectedPhoto = selectedIndex !== null ? photos[selectedIndex] : null;
 
-  function closeLightbox() {
+  const closeLightbox = useCallback(() => {
     setSelectedIndex(null);
-  }
+  }, []);
 
-  function previousPhoto() {
+  const previousPhoto = useCallback(() => {
     if (selectedIndex === null) return;
     setSelectedIndex((selectedIndex - 1 + photos.length) % photos.length);
-  }
+  }, [selectedIndex]);
 
-  function nextPhoto() {
+  const nextPhoto = useCallback(() => {
     if (selectedIndex === null) return;
     setSelectedIndex((selectedIndex + 1) % photos.length);
-  }
+  }, [selectedIndex]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -44,7 +44,7 @@ export default function Gallery() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedIndex]);
+  }, [closeLightbox, nextPhoto, previousPhoto, selectedIndex]);
 
   return (
     <section
